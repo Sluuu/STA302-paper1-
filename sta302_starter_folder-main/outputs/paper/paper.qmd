@@ -1,9 +1,8 @@
 ---
-title: "My title"
+title: "What should the minimum wage be to live in Toronto for households?"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Sean Liu
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
