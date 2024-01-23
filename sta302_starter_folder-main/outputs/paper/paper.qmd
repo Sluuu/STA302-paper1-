@@ -21,10 +21,9 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
-
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+As the living cost in the Greater Toronto Area kept rising, an interesting topic has always been discussed by the residents, "What should the minimum wage be to live in Toronto for households?" According to (Reference) The minimum wage in Ontario in 2022 was $15.5 per hour. However, 
 
 The remainder of this paper is structured as follows. @sec-data....
 
