@@ -6,7 +6,7 @@ author:
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "The paper is not yet close to complete."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -53,20 +53,22 @@ Talk more about it.
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
 ```{r}
+
 #| label: fig-planes
 #| fig-cap: Relationship between wing length and width
 #| echo: false
 #| warning: false
 #| message: false
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
+# analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
 
-analysis_data |> 
+#analysis_data |> 
   ggplot(aes(x = width, y = length)) +
   geom_point(alpha = 0.8) +
   theme_minimal() +
   labs(x = "Wing width (mm)",
        y = "Wing length (mm)")
+
 ```
 
 Talk way more about it. 
@@ -114,8 +116,8 @@ Our results are summarized in @tbl-modelresults.
 
 library(rstanarm)
 
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
+#first_model <-
+  #readRDS(file = here::here("outputs/models/first_model.rds"))
 ```
 
 ```{r}
@@ -125,12 +127,12 @@ first_model <-
 #| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
 #| warning: false
 
-modelsummary::modelsummary(
-  list(
+#modelsummary::modelsummary(
+  #list(
     "First model" = first_model
   ),
-  statistic = "mad",
-  fmt = 2
+  #statistic = "mad",
+  #fmt = 2
 )
 ```
 
@@ -178,15 +180,15 @@ In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. Th
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
 #| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
+#pp_check(first_model) +
+  #theme_classic() +
+  #theme(legend.position = "bottom")
 
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
+#posterior_vs_prior(first_model) +
+  #theme_minimal() +
+  #scale_color_brewer(palette = "Set1") +
+  #theme(legend.position = "bottom") +
+  #coord_flip()
 ```
 
 ## Diagnostics
@@ -205,9 +207,9 @@ posterior_vs_prior(first_model) +
 #| fig-subcap: ["Trace plot", "Rhat plot"]
 #| layout-ncol: 2
 
-plot(first_model, "trace")
+#plot(first_model, "trace")
 
-plot(first_model, "rhat")
+#plot(first_model, "rhat")
 ```
 
 
