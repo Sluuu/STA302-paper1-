@@ -13,7 +13,9 @@ library(tidyverse)
 # [...UPDATE THIS...]
 
 #### Simulate data ####
-raw_data <- read.csv
+data_with_sub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - With Subsidies.csv")
+data_avg_rent_nosub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - Without Subsidies, Average Rent.csv")
+data_mkt_rent_nosub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - Without Subsidies, Market Rent.csv")
 
 
 
