@@ -63,11 +63,11 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 # analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
 
 #analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+  #ggplot(aes(x = width, y = length)) +
+  #geom_point(alpha = 0.8) +
+  #theme_minimal() +
+  #labs(x = "Wing width (mm)",
+       #y = "Wing length (mm)")
 
 ```
 
@@ -129,11 +129,11 @@ library(rstanarm)
 
 #modelsummary::modelsummary(
   #list(
-    "First model" = first_model
-  ),
+    #"First model" = first_model
+  #),
   #statistic = "mad",
   #fmt = 2
-)
+#)
 ```
 
 
