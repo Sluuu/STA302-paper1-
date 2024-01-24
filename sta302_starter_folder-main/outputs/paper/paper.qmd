@@ -19,7 +19,7 @@ bibliography: references.bib
 
 library(tidyverse)
 library(knitr)
-library()
+library(modelsummary)
 ```
 
 # Introduction
@@ -30,9 +30,11 @@ The remainder of this paper is structured as follows. @sec-data....
 
 
 
-# Data {#sec-data}
+# 2.1 Data {#sec-data}
 
-The data is of (@Figure-1), from @palmerpenguins. This paper has divided the population into 9 different scenerios.  In Figure 1, it shows the what are the remaining balance for people in different scenarios.
+The data is of (@Figure-1), from @palmerpenguins and the data set is refreshed annually. It contains the income scenarios without the government subsidies, the housing rental price is the price of market rent and it is based on the average market rent as of June 2022, as measured by the Toronto Regional Real Estate Board (TRREB). (reference) The data is for the City of Toronto to monitor the affordability of food to people. The cost of food was measured annually using the Nutritious Food Basket (NFB) costing tool. To find out the ability for low incomes people to have enough money to cover the cost of basic expenses, including food. The data set provides the affordability of food and other basic expenses relative to income for nine household scenarios. (REFERENCE)
+Scenarios were selected to reflect household characteristics that increase the risk of being food insecure, including reliance on social assistance as the main source of income, single-parent households, and rental housing. A median income scenario has also been included as a comparator.
+Income, including federal and provincial tax benefits, and the cost of four basic living expenses - shelter, food, childcare, and transportation - are estimated for each scenario. Results show the amount of money remaining at the end of the month for each household.
 
 ```{r}
 #| label: Figure-1
@@ -40,10 +42,21 @@ The data is of (@Figure-1), from @palmerpenguins. This paper has divided the pop
 #| echo: false
 #| include: false
 
+data_mkt_rent_nosub |> datasummary_skim(type = "categorical")
 ggplot(data_avg_rent_nosub)
 ```
 
-Talk more about it.
+# 2.2 Clean Data
+
+As the main focus of this paper will be focusing on how much minimum wage will be enough in order to live in Toronto. Therefore, I have cleaned up the scenarios for people that are receiving the Old Aged Securities, as people in this scenarios wouldn't be having a job or a minimum pay job. To simplify the analysis process, the missing entries will be removed. 
+
+
+```{r}
+#| echo: false
+#| include: false
+data_mkt_rent_nosub$Scenario.7..One.Person.Household..Old.Age.Security..Guaranteed.Annual.Income.Supplement <- NULL
+
+```
 
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
