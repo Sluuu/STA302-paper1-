@@ -18,3 +18,6 @@ The repo is structured as:
 ## Steps for Repo
 
 Please open the inputs and run through all the Rscrpit in there then run the qmd file in outputs. 
+
+## LLM Usages 
+Aspects of the code were written with the help of the AI tool, CHAT-GPT. The DATA and the Clean DATA of paper.qmd were written with the help of CHATGPT and the entire chat history is available in `inputs/llms/usage.txt
