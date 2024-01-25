@@ -1,11 +1,10 @@
 #### Preamble ####
-# Purpose: Simulates... [...UPDATE THIS...]
-# Author: Sean Liu [...UPDATE THIS...]
-# Date: 23 January 2024 [...UPDATE THIS...]
-# Contact: yuhsiang.liu@mail.utoronto.ca [...UPDATE THIS...]
+# Purpose: Simulate data
+# Author: Sean Liu 
+# Date: 23 January 2024 
+# Contact: yuhsiang.liu@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+
 
 
 #### Workspace setup ####
@@ -19,15 +18,8 @@ download.file(url = "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/521
 
 data <- read.csv("raw_data.csv")
 
-
-# get package
-
-
-# [...UPDATE THIS...]
-
 #### Simulate data ####
-data_with_sub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - With Subsidies.csv")
-data_avg_rent_nosub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - Without Subsidies, Average Rent.csv")
+
 data_mkt_rent_nosub <- read.csv("/cloud/project/sta302_starter_folder-main/inputs/data/2022 Income Scenario - Without Subsidies, Market Rent.csv")
 
 x <- data_mkt_rent_nosub

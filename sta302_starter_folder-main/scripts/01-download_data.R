@@ -1,11 +1,9 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Sean Liu [...UPDATE THIS...]
-# Date: 23 January 2024 [...UPDATE THIS...]
-# Contact: yuhsiang.liu@mail.utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from 
+# Author: Sean Liu 
+# Date: 23 January 2024 
+# Contact: yuhsiang.liu@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
 
 
 #### Workspace setup ####

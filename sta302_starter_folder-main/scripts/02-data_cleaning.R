@@ -31,5 +31,3 @@ SC3_Benefit <- data.frame(
   Amount = c(0, 38, 62, 0, 31)
 )
 
-#### Save data ####
-write_csv(x, "outputs/data/analysis_data.csv")
