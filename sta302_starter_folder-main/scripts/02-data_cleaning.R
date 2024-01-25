@@ -1,6 +1,6 @@
 #### Preamble ####
 # Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
+# Author: Sean Liu [...UPDATE THIS...]
 # Date: 6 April 2023 [...UPDATE THIS...]
 # Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
 # License: MIT
@@ -11,34 +11,26 @@
 library(tidyverse)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+data <- read.csv("raw_data.csv")
+x <- data.frame(
+  Category = c("Wage Income", "Benefit Income", "Expenses", "Funds Remaining"),
+  Scenerio_1 = c(2600, 1404, 6445, -2441),
+  Scenerio_2 = c(9458, 425, 6445, 2878),
+  Scenerio_3 = c(2600, 131, 2797, -66)
+)
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+SC1_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(1162, 76, 197, 80, 62)
+  )
+SC2_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(363, 0, 0, 0, 62)
+)
+SC3_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(0, 38, 62, 0, 31)
+)
 
 #### Save data ####
 write_csv(cleaned_data, "outputs/data/analysis_data.csv")

@@ -20,6 +20,8 @@ bibliography: references.bib
 library(tidyverse)
 library(knitr)
 library(modelsummary)
+install.packages("janitor")
+library(janitor)
 ```
 
 # Introduction
@@ -33,7 +35,7 @@ The remainder of this paper is structured as follows. @sec-data....
 # 2.1 Data {#sec-data}
 
 The data is of (@Figure-1), from @palmerpenguins and the data set is refreshed annually. It contains the income scenarios without the government subsidies, the housing rental price is the price of market rent and it is based on the average market rent as of June 2022, as measured by the Toronto Regional Real Estate Board (TRREB). (reference) The data is for the City of Toronto to monitor the affordability of food to people. The cost of food was measured annually using the Nutritious Food Basket (NFB) costing tool. To find out the ability for low incomes people to have enough money to cover the cost of basic expenses, including food. The data set provides the affordability of food and other basic expenses relative to income for nine household scenarios. (REFERENCE)
-Scenarios were selected to reflect household characteristics that increase the risk of being food insecure, including reliance on social assistance as the main source of income, single-parent households, and rental housing. A median income scenario has also been included as a comparator.
+Scenarios were selected to reflect household characteristics that increase the risk of being food insecure, including reliance on social assistance as the main source of income, single-parent households, and rental housing. A median income scenario has also been included as a comparetor.
 Income, including federal and provincial tax benefits, and the cost of four basic living expenses - shelter, food, childcare, and transportation - are estimated for each scenario. Results show the amount of money remaining at the end of the month for each household.
 
 ```{r}
@@ -43,18 +45,22 @@ Income, including federal and provincial tax benefits, and the cost of four basi
 #| include: false
 
 data_mkt_rent_nosub |> datasummary_skim(type = "categorical")
-ggplot(data_avg_rent_nosub)
+head(data_mkt_rent_nosub)
+tail(data_mkt_rent_nosub)
+clean_data <- clean_names(data_mkt_rent_nosub)
+head(clean_data)
+print(clean_data)
 ```
 
 # 2.2 Clean Data
 
-As the main focus of this paper will be focusing on how much minimum wage will be enough in order to live in Toronto. Therefore, I have cleaned up the scenarios for people that are receiving the Old Aged Securities, as people in this scenarios wouldn't be having a job or a minimum pay job. To simplify the analysis process, the missing entries will be removed. 
-
-
+As the main focus of this paper will be focusing on how much minimum wage will be enough in order to live in Toronto. Therefore, I have cleaned up the scenarios for people that are receiving the Old Aged Securities, as people in this scenarios wouldn't be having a job or a minimum pay job. To simplify the analysis process, the missing entries will be removed. Also, the I will be narrowing down the scenarios into 3 scenarios. In Scenario 1, it shows the financial situation of a full time minimum wage worker and with a family of 4. In Scenario 2, it shows the financial situation of a full time medium wage worker and with a family of 4. Lastly in Scenario 3, it shows a full time minimum wage worker but it is a single person household. 
+For the Categories, the benefit income includes the Canada Child Benefit, GST/HST credit, Ontario Trillium Benefit, Canada Worker Benefit, and Climate Action Incentive Payment. The expenses includes the Average Monthly Rent, Food, Childcare, and Transportation. Notice that in Scenario 1 and 2 the expenses will be equal as we wanted to show how wages can affect a household.
 ```{r}
 #| echo: false
 #| include: false
 data_mkt_rent_nosub$Scenario.7..One.Person.Household..Old.Age.Security..Guaranteed.Annual.Income.Supplement <- NULL
+print(x)
 
 ```
 
@@ -81,6 +87,28 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 
 Talk way more about it. 
 
+```{r}
+library(ggplot2)
+
+# Create a pie chart using ggplot2
+ggplot(SC1_Benefit, aes(x = "", y = Amount, fill = Category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  ggtitle("Pie Chart of Benefit Incomesfor Scenario 1") +
+  scale_fill_manual(values = rainbow(length(unique(SC1_Benefit$Category))))
+
+ggplot(SC2_Benefit, aes(x = "", y = Amount, fill = Category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  ggtitle("Pie Chart of Benefit Incomesfor Scenario 2") +
+  scale_fill_manual(values = rainbow(length(unique(SC2_Benefit$Category))))
+
+ggplot(SC3_Benefit, aes(x = "", y = Amount, fill = Category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  ggtitle("Pie Chart of Benefit Incomesfor Scenario 3") +
+  scale_fill_manual(values = rainbow(length(unique(SC3_Benefit$Category))))
+```
 
 
 # Model
@@ -149,13 +177,6 @@ library(rstanarm)
 
 # Discussion
 
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
 
 ## Weaknesses and next steps
 
@@ -169,56 +190,6 @@ Weaknesses and next steps should also be included.
 
 
 # Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-#pp_check(first_model) +
-  #theme_classic() +
-  #theme(legend.position = "bottom")
-
-#posterior_vs_prior(first_model) +
-  #theme_minimal() +
-  #scale_color_brewer(palette = "Set1") +
-  #theme(legend.position = "bottom") +
-  #coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-#plot(first_model, "trace")
-
-#plot(first_model, "rhat")
-```
 
 
 
