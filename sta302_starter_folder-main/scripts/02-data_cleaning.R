@@ -1,11 +1,10 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Sean Liu [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw data recorded 
+# Author: Sean Liu 
+# Date: 24 January 2024
+# Contact: yuhsiang.liu@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+
 
 #### Workspace setup ####
 library(tidyverse)
@@ -33,4 +32,4 @@ SC3_Benefit <- data.frame(
 )
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_csv(x, "outputs/data/analysis_data.csv")
