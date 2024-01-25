@@ -1,14 +1,16 @@
 ---
 title: "What should the minimum wage be to live in Toronto for households?"
-subtitle: "My subtitle if needed"
 author: 
   - Sean Liu
 thanks: "Code and data are available at: https://github.com/Sluuu/STA302-paper1-.git"
 date: today
 date-format: long
 abstract: "As the living cost in the Greater Toronto Area kept rising, an interesting topic has always been discussed by the residents, What should the minimum wage be to live in Toronto for households?. Will the current minimum wage cover the basic living expenses?"
-format: pdf
-number-sections: true
+format: 
+ pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
 bibliography: references.bib
 ---
 
@@ -22,21 +24,25 @@ library(knitr)
 library(modelsummary)
 install.packages("janitor")
 library(janitor)
+library(readr)
 ```
 
 # Introduction
 
-As the living cost in the Greater Toronto Area kept rising, an interesting topic has always been discussed by the residents, "What should the minimum wage be to live in Toronto for households?" According to (Reference). I will be using the data set in 2022 and therefore, all the minimum income, expenses, and government benefits will be based on the information in 2022.
+As the living cost in the Greater Toronto Area kept rising, an interesting topic has always been discussed by the residents, "What should the minimum wage be to live in Toronto for households?". I will be using the data set in 2022 and therefore, all the minimum income, expenses, and government benefits will be based on the information in 2022.
 
-The data was cleaned and processed using the statistical programming language R [@R]. Statistical libraries such as `tidyverse` [@tidyverse], `opendatatoronto` [@opendatatoronto], `knitr` [@knitr], `janitor` [@janitor], `tidyverse` [@tidyverse] and `modelsummary` [@modelsummery].
+The data was cleaned and processed using the statistical programming language R [@R]. Statistical libraries such as `tidyverse` [@tidyverse], `opendatatoronto` [@opendatatoronto], `knitr` [@knitr], `janitor` [@janitor], `modelsummary` [@modelsummary], `dplyr` [@dplyr], and `readxl` [@readxl].
 
 # Data
 
-The data is of (@Figure-1), from @opendatatoronto and the data set is refreshed annually. It contains the income scenarios without the government subsidies, the housing rental price is the price of market rent and it is based on the average market rent as of June 2022, as measured by the Toronto Regional Real Estate Board (TRREB). (reference) The data is for the City of Toronto to monitor the affordability of food to people. The cost of food was measured annually using the Nutritious Food Basket (NFB) costing tool. To find out the ability for low incomes people to have enough money to cover the cost of basic expenses, including food. The data set provides the affordability of food and other basic expenses relative to income for nine household scenarios. (REFERENCE) Scenarios were selected to reflect household characteristics that increase the risk of being food insecure, including reliance on social assistance as the main source of income, single-parent households, and rental housing. A median income scenario has also been included as a comparetor. Income, including federal and provincial tax benefits, and the cost of four basic living expenses - shelter, food, childcare, and transportation - are estimated for each scenario. Results show the amount of money remaining at the end of the month for each household.
+The data is from the Open Data Toronto [@opendatatoronto] and the data set is refreshed annually. It contains the income scenarios without the government subsidies, the housing rental price is the price of market rent and it is based on the average market rent as of June 2022, as measured by the Toronto Regional Real Estate Board (TRREB). [@opendatatoronto] The data is for the City of Toronto to monitor the affordability of food to people. The cost of food was measured annually using the Nutritious Food Basket (NFB) costing tool. To find out the ability for low incomes people to have enough money to cover the cost of basic expenses, including food. The data set provides the affordability of food and other basic expenses relative to income for nine household scenarios.[@Torontocitynews] Scenarios were selected to reflect household characteristics that increase the risk of being food insecure, including reliance on social assistance as the main source of income, single-parent households, and rental housing. A median income scenario has also been included as a comparsion. [@opendatatoronto] Income, including federal and provincial tax benefits, and the cost of four basic living expenses - shelter, food, childcare, and transportation - are estimated for each scenario. Results show the amount of money remaining at the end of the month for each household.[@opendatatoronto]
 
 ```{r}
-#Read Data
-data <- read.csv("raw_data.csv")
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+print(data)
 ```
 
 
@@ -46,19 +52,39 @@ As the main focus of this paper will be focusing on how much minimum wage will b
 
 ```{r}
 #| echo: false
-#| include: false
+#| warning: false
+#| message: false
+x <- data.frame(
+  Category = c("Wage Income", "Benefit Income", "Expenses", "Funds Remaining"),
+  Scenerio_1 = c(2600, 1404, 6445, -2441),
+  Scenerio_2 = c(9458, 425, 6445, 2878),
+  Scenerio_3 = c(2600, 131, 2797, -66)
+)
 print(x)
 ```
 
-In @Figure-1, @Figure-2, and @Figure-3 it shows how each benefit are weighted in the benefit income. Comparing @Fighure-1 and @Figure-2, we can see that household with less income will receive more kinds and more amount of benefits from the government. However, another important question to consider is that, even with more benefit income would that be enough to cover the basic cost of living?
+In `Figure-2`, `Figure-3`, and `Figure-4` it shows how each benefit are weighted in the benefit income. Comparing `Fighure-2` and `Figure-3`, we can see that household with less income will receive more kinds and more amount of benefits from the government. However, another important question to consider is that, even with more benefit income would that be enough to cover the basic cost of living?
 
 ```{r}
-#| label: Figure-1
+#| label: Figure-2
 #| fig-cap: Weighting relationship between Benefit Income in Scenerio 1 
 #| echo: false
 #| warning: false
 #| message: false
 library(ggplot2)
+#Create New Variables for pie chart 
+SC1_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(1162, 76, 197, 80, 62)
+  )
+SC2_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(363, 0, 0, 0, 62)
+)
+SC3_Benefit <- data.frame( 
+  Category = c("Canada Child Benefit", "GST/HST credit", "Ontario Trillium Benefit", "Canada Worker Benefit", "Climate Action Incentive Payment"),
+  Amount = c(0, 38, 62, 0, 31)
+)
 
 # Create a pie chart using ggplot2
 ggplot(SC1_Benefit, aes(x = "", y = Amount, fill = Category)) +
@@ -70,7 +96,7 @@ ggplot(SC1_Benefit, aes(x = "", y = Amount, fill = Category)) +
 ```
 
 ```{r}
-#| label: Figure-2
+#| label: Figure-3
 #| fig-cap: Weighting relationship between Benefit Income in Scenerio 2
 #| echo: false
 #| warning: false
@@ -85,7 +111,7 @@ ggplot(SC2_Benefit, aes(x = "", y = Amount, fill = Category)) +
 ```
 
 ```{r}
-#| label: Figure-3
+#| label: Figure-4
 #| fig-cap: Weighting relationship between Benefit Income in Scenerio 3
 #| echo: false
 #| warning: false
@@ -99,8 +125,9 @@ ggplot(SC3_Benefit, aes(x = "", y = Amount, fill = Category)) +
 
 
 # Weaknesses
-Scenarios only describe the estimated values and it is rounded to the nearest dollar. Therefore, it may not be accurate enough. The income and the expenses data are estimated using the information in 2022, which there are some gap between now. The income amounts include all benefits available to Ontario residents therefore, they are maximum amounts. The actual income amounts may be lower if the residents do not file their income tax and/or do not apply for all available benefits.
+Scenarios only describe the estimated values and it is rounded to the nearest dollar. Therefore, it may not be accurate enough. The income and the expenses data are estimated using the information in 2022, which there are some gap between now. The income amounts include all benefits available to Ontario residents therefore, they are maximum amounts. The actual income for the Ontario residents might also be lower if the residents do not file their income tax or do not apply for all the available benefits. [@opendatatoronto]
 
 \newpage
 
 # References
+

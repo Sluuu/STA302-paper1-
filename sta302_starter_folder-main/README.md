@@ -14,3 +14,7 @@ The repo is structured as:
 -   `outputs/data` contains the cleaned dataset that was constructed.
 -   `outputs/paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data.
+
+## Steps for Repo
+
+Please open the inputs and run through all the Rscrpit in there then run the qmd file in outputs. 
